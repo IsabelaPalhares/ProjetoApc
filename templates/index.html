@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Projeto APC</title>
+    </head>
+    <body>
+        <h1>Adicionar um novo animal</h1>
+        <form action="/create" method="POST">
+            <input type="text" name="nome" required> 
+            <button type="submit">Criar tarefa</button>
+        </form>
+        <h1>Lista de tarefas</h1>
+        <ul>
+            {% for task in tasks %}
+                <li>{{ task.nome }}</li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
