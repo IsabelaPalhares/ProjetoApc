@@ -17,7 +17,11 @@
     <h1>Lista de Animais</h1>
     <ul>
         {% for task in tasks %}
-            <li>{{ task.nome }}, {{ task.status }}</li>
+            <li>
+                {{ task.nome }}, {{ task.status }}
+                <form action="/delete/{{ task.id }}" method="POST" style="display:inline;">
+                    <button type="submit">X</button>
+            </li>
         {% endfor %}
     </ul>
 

@@ -39,6 +39,17 @@ def create_task():
 
     return redirect('/')
 
+
+@app.route("/delete/<int:task_id>", methods=["POST"])
+def delete_task(task_id):
+    task = Tasks.query.get(task_id)
+    
+    if task:
+        db.session.delete(task)
+        db.session.commit()
+    return redirect('/')
+
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
