@@ -1,19 +1,40 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Projeto APC</title>
-    </head>
-    <body>
-        <h1>Adicionar um novo animal</h1>
-        <form action="/create" method="POST">
-            <input type="text" name="nome" required> 
-            <button type="submit">Criar tarefa</button>
-        </form>
-        <h1>Lista de tarefas</h1>
-        <ul>
-            {% for task in tasks %}
-                <li>{{ task.nome }}</li>
-            {% endfor %}
-        </ul>
-    </body>
+<head>
+    <title>Projeto APC</title>
+</head>
+<body>
+    <h1>Adicionar um novo animal</h1>
+    <form action="/create" method="POST">
+        <input type="text" name="nome" required placeholder="Nome">
+        <input type="text" name="nome_cientifico" required placeholder="Nome científico">
+        <input type="text" name="status" required placeholder="Status">
+        <input type="text" name="regiao" required placeholder="Região">
+        <input type="text" name="bioma" required placeholder="Bioma">
+        <button type="submit">Registrar animal</button>
+    </form>
+
+    <h1>Lista de Animais</h1>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {{ task.nome }}, {{ task.status }}
+                <form action="/delete/{{ task.id }}" method="POST" style="display:inline;">
+                    <button type="submit">X</button>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div>
+        {% if pagination.has_prev %}
+            <a href="{{ url_for('index', page=pagination.prev_num) }}">Página anterior</a>
+        {% endif %}
+
+        Página {{ pagination.page }} de {{ pagination.pages }}
+
+        {% if pagination.has_next %}
+            <a href="{{ url_for('index', page=pagination.next_num) }}">Próxima página</a>
+        {% endif %}
+    </div>
+</body>
 </html>
