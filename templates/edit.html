@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Animal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Editar Animal: {{ task.nome }}</h1>
+
+    <form class="create-form" action="{{ url_for('update_task', task_id=task.id) }}" method="POST">
+        <label for="nome">Nome Popular:</label>
+        <input type="text" id="nome" name="nome" value="{{ task.nome }}" required>
+
+        <label for="nome_cientifico">Nome Científico:</label>
+        <input type="text" id="nome_cientifico" name="nome_cientifico" value="{{ task.nome_cientifico }}" required>
+
+        <label for="status">Status de Conservação:</label>
+        <input type="text" id="status" name="status" value="{{ task.status }}" required>
+
+        <label for="regiao">Região:</label>
+        <input type="text" id="regiao" name="regiao" value="{{ task.regiao }}" required>
+
+        <label for="bioma">Bioma:</label>
+        <input type="text" id="bioma" name="bioma" value="{{ task.bioma }}" required>
+        
+        <button type="submit">Atualizar Animal</button>
+    </form>
+</body>
+</html>
