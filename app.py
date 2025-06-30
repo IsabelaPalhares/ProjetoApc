@@ -8,12 +8,50 @@ db.init_app(app)
 
 @app.route('/')
 def index():
+    # Pega o parâmetro 'biome' da URL (ex: /?biome=Cerrado)
+    search_biome = request.args.get('biome', None, type=str)
+
     page = request.args.get('page', 1, type=int)
     per_page = 10
-    pagination = Task.query.paginate(page=page, per_page=per_page, error_out=False)
-    tasks = pagination.items
-    return render_template("index.html", tasks=tasks, pagination=pagination)
 
+    # Cria a consulta base ao banco de dados
+    query = Task.query
+
+    # Se um bioma foi selecionado no filtro, modifica a consulta
+    if search_biome and search_biome.strip():
+        # Filtra os resultados onde a coluna 'bioma' contém o texto pesquisado
+        # Ex: Se search_biome for "Amazônia", vai encontrar "Amazônia, Cerrado"
+        query = query.filter(Task.bioma.ilike(f'%{search_biome}%'))
+
+    # --- LÓGICA NOVA E MELHORADA PARA OBTER BIOMAS ÚNICOS ---
+    # 1. Busca todas as entradas da coluna 'bioma' no banco.
+    all_biomas_from_db = db.session.query(Task.bioma).distinct().all()
+    
+    # 2. Processa os resultados para criar uma lista limpa e única.
+    unique_biomes = set()  # Usar um 'set' garante que não haverá duplicatas
+    for bioma_tuple in all_biomas_from_db:
+        # Pega a string, ex: "Amazônia, Cerrado"
+        bioma_string = bioma_tuple[0]
+        # Separa a string pela vírgula e espaço
+        individual_biomes = [b.strip() for b in bioma_string.split(',')]
+        # Adiciona cada bioma individual ao set
+        unique_biomes.update(individual_biomes)
+    
+    # 3. Converte o set para uma lista e ordena em ordem alfabética
+    sorted_unique_biomes = sorted(list(unique_biomes))
+
+    # Aplica a paginação na consulta (já filtrada ou não)
+    pagination = query.paginate(page=page, per_page=per_page, error_out=False)
+    tasks = pagination.items
+
+    # Renderiza o template, enviando as novas variáveis para o HTML
+    return render_template(
+        "index.html", 
+        tasks=tasks, 
+        pagination=pagination,
+        all_biomes=sorted_unique_biomes,  # Lista de biomas únicos para o dropdown
+        search_biome=search_biome        # O bioma atualmente filtrado
+    )
 @app.route("/create", methods=["POST"])
 def create_task():
     nome = request.form["nome"]

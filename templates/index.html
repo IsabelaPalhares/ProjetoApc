@@ -7,27 +7,56 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Adicionar um Novo Animal</h1>
-    <form class="create-form" action="{{ url_for('create_task') }}" method="POST">
-        <label for="nome">Nome Popular:</label>
-        <input type="text" id="nome" name="nome" required placeholder="Ex: Arara-azul">
 
-        <label for="nome_cientifico">Nome Científico:</label>
-        <input type="text" id="nome_cientifico" name="nome_cientifico" required placeholder="Ex: Anodorhynchus hyacinthinus">
+    <div class="forms-container">
         
-        <label for="status">Status de Conservação:</label>
-        <input type="text" id="status" name="status" required placeholder="Ex: Vulnerável (VU)">
+        <div class="form-wrapper">
+            <h1>Registrar um Novo Animal</h1>
+            <form class="create-form" action="{{ url_for('create_task') }}" method="POST">
+                <label for="nome">Nome Popular:</label>
+                <input type="text" id="nome" name="nome" required placeholder="Ex: Arara-azul">
 
-        <label for="regiao">Região:</label>
-        <input type="text" id="regiao" name="regiao" required placeholder="Ex: Amazônia, Cerrado">
+                <label for="nome_cientifico">Nome Científico:</label>
+                <input type="text" id="nome_cientifico" name="nome_cientifico" required placeholder="Ex: Anodorhynchus hyacinthinus">
+                
+                <label for="status">Status de Conservação:</label>
+                <input type="text" id="status" name="status" required placeholder="Ex: Vulnerável (VU)">
 
-        <label for="bioma">Bioma:</label>
-        <input type="text" id="bioma" name="bioma" required placeholder="Ex: Amazônia">
+                <label for="regiao">Região (Estados):</label>
+                <input type="text" id="regiao" name="regiao" required placeholder="Ex: Bahia, Minas Gerais">
 
-        <button type="submit">Registrar Animal</button>
-    </form>
+                <label for="bioma">Bioma:</label>
+                <input type="text" id="bioma" name="bioma" required placeholder="Ex: Mata Atlântica, Cerrado">
 
-    <h1>Lista de Animais</h1>
+                <button type="submit">Registrar Animal</button>
+            </form>
+        </div>
+
+        <div class="form-wrapper">
+            <h1>Filtrar Animais</h1>
+            <form class="create-form" action="{{ url_for('index') }}" method="GET">
+                <label for="biome">Filtrar por Bioma:</label>
+                <select name="biome" id="biome">
+                    <option value="">Todos os Biomas</option>
+                    {% for biome in all_biomes %}
+                        <option value="{{ biome }}" {% if biome == search_biome %}selected{% endif %}>
+                            {{ biome }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <div style="display: flex; gap: 1rem; align-items: center; margin-top: 1rem;">
+                    <button type="submit">Filtrar</button>
+                    <a href="{{ url_for('index') }}" class="btn btn-edit" style="text-decoration: none;">Limpar Filtro</a>
+                </div>
+            </form>
+        </div>
+
+    </div> {% if search_biome %}
+        <h2 style="margin-top: 3rem;">Exibindo resultados para o bioma: "{{ search_biome }}"</h2>
+    {% else %}
+        <h1 style="margin-top: 3rem;">Lista de Animais</h1>
+    {% endif %}
+
     <div class="animal-grid">
         {% for task in tasks %}
             <div class="animal-card">
@@ -55,17 +84,19 @@
                 </div>
             </div>
         {% else %}
-            <p>Nenhum animal cadastrado ainda.</p>
+            <p>Nenhum animal encontrado para este filtro.</p>
         {% endfor %}
     </div>
 
-    <div class="pagination">
+    <div class="pagination" style="text-align: center; margin-top: 3rem;">
         {% if pagination.has_prev %}
-            <a href="{{ url_for('index', page=pagination.prev_num) }}">Página Anterior</a>
+            <a href="{{ url_for('index', page=pagination.prev_num, biome=search_biome or '') }}" class="btn btn-edit" style="text-decoration: none;">Página Anterior</a>
         {% endif %}
-        <span>Página {{ pagination.page }} de {{ pagination.pages }}</span>
+
+        <span style="margin: 0 1rem;">Página {{ pagination.page }} de {{ pagination.pages }}</span>
+
         {% if pagination.has_next %}
-            <a href="{{ url_for('index', page=pagination.next_num) }}">Próxima Página</a>
+            <a href="{{ url_for('index', page=pagination.next_num, biome=search_biome or '') }}" class="btn btn-edit" style="text-decoration: none;">Próxima Página</a>
         {% endif %}
     </div>
 </body>

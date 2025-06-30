@@ -1,4 +1,5 @@
 :root {
+
   --primary-green: #3a5a40;
   --secondary-green: #588157;
   --light-green: #a3b18a;
@@ -8,17 +9,16 @@
   --vulnerable: #f59e0b;
   --endangered: #f97316;
   --critical: #dc2626;
-
+  
   --white: #ffffff;
   --light-gray: #f5f5f4;
   --medium-gray: #d6d3d1;
   --dark-gray: #57534e;
- 
+  
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  
-
+ 
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 1rem;
@@ -33,7 +33,6 @@ body {
   max-width: 1600px;
   margin: 0 auto;
 }
-
 
 h1 {
   font-size: 2rem;
@@ -62,14 +61,25 @@ h3 {
   margin-bottom: 0.5rem;
 }
 
+/* --- ESTILOS DOS FORMULÁRIOS --- */
+.forms-container {
+  display: flex;
+  justify-content: space-between; 
+  align-items: flex-start; 
+  gap: 2rem; 
+  margin-bottom: 3rem; 
+}
+
+.form-wrapper {
+  flex: 1; 
+}
 
 .create-form {
   background-color: var(--white);
   padding: 2rem;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
-  margin-bottom: 3rem;
-  max-width: 600px;
+  margin-bottom: 0; 
 }
 
 .create-form label {
@@ -116,6 +126,12 @@ h3 {
   box-shadow: var(--shadow-md);
 }
 
+@media (max-width: 900px) {
+  .forms-container {
+    flex-direction: column;
+    gap: 3rem; 
+  }
+}
 
 .animal-grid {
   display: grid;
@@ -130,6 +146,9 @@ h3 {
   overflow: hidden;
   box-shadow: var(--shadow-md);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 0.3s ease-out forwards;
+  display: flex;
+  flex-direction: column;
 }
 
 .animal-card:hover {
@@ -139,6 +158,7 @@ h3 {
 
 .animal-card-content {
   padding: 1.5rem;
+  flex-grow: 1;
 }
 
 .animal-card p {
@@ -151,7 +171,7 @@ h3 {
   font-weight: 500;
 }
 
-
+/* --- STATUS E BOTÕES --- */
 .status-badge {
   display: inline-block;
   padding: 0.25rem 0.75rem;
@@ -184,9 +204,10 @@ h3 {
 .action-buttons {
   display: flex;
   gap: 0.75rem;
-  margin-top: 1.5rem;
+  padding: 0 1.5rem 1.5rem 1.5rem; 
+  margin-top: 1rem;
+  border-top: 1px solid var(--light-gray);
   padding-top: 1rem;
-  border-top: 1px solid var(--medium-gray);
 }
 
 .btn {
@@ -219,7 +240,7 @@ h3 {
   background-color: #b91c1c;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   body {
     padding: 1rem;
@@ -234,17 +255,11 @@ h3 {
   }
 }
 
-/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.animal-card {
-  animation: fadeIn 0.3s ease-out forwards;
-}
-
-/* Loading State (optional) */
 .loading-card {
   background-color: var(--light-gray);
   min-height: 200px;
