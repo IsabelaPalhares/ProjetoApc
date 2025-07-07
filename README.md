@@ -81,15 +81,4 @@ Pronto! A aplicação estará rodando em sua máquina local.
 
 ---
 
-## 5. Estrutura do Projeto
-/
-├── app.py                  # Arquivo principal da aplicação Flask, contém as rotas e a lógica.
-├── models.py               # Define o modelo de dados (tabela de animais) usando SQLAlchemy.
-├── seed.py                 # Script para popular o banco de dados a partir do CSV.
-├── Fauna Ameaçada.csv      # Fonte de dados inicial com a lista de animais.
-├── templates/
-│   ├── index.html          # Página principal que exibe a lista de animais e os formulários.
-│   └── edit.html           # Página para edição de um animal existente.
-└── static/
-    └── css/
-        └── style.css       # Página de estilos para a aplicação.
+
