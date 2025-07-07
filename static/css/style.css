@@ -1,40 +1,51 @@
+/* --- CONFIGURAÇÕES GERAIS E VARIÁVEIS DE COR --- */
 :root {
+  /* Defino aqui todas as cores e valores que vou usar no site. Facilita a manutenção! */
 
+  /* Paleta de cores principal */
   --primary-green: #3a5a40;
   --secondary-green: #588157;
   --light-green: #a3b18a;
   --beige: #dad7cd;
   --dark-brown: #344e41;
   
+  /* Cores para os status dos animais (Vulnerável, Em Perigo, Crítico) */
   --vulnerable: #f59e0b;
   --endangered: #f97316;
   --critical: #dc2626;
   
+  /* Cores neutras */
   --white: #ffffff;
   --light-gray: #f5f5f4;
   --medium-gray: #d6d3d1;
   --dark-gray: #57534e;
   
+  /* Estilos de sombra para dar profundidade aos elementos */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
  
+  /* Tamanhos de borda arredondada */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 1rem;
 }
 
+/* --- ESTILOS BÁSICOS DO CORPO DA PÁGINA --- */
 body {
+  /* Define a fonte, cor e fundo para a página inteira. */
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   line-height: 1.5;
   color: var(--dark-brown);
   background-color: var(--beige);
   padding: 2rem;
   max-width: 1600px;
-  margin: 0 auto;
+  margin: 0 auto; /* Centraliza o conteúdo na tela */
 }
 
+/* --- ESTILOS DOS TÍTULOS --- */
 h1 {
+  /* Estiliza o título principal (H1) com uma linha decorativa embaixo. */
   font-size: 2rem;
   font-weight: 700;
   color: var(--primary-green);
@@ -44,6 +55,7 @@ h1 {
 }
 
 h1::after {
+  /* Cria a linha verde embaixo do H1. */
   content: '';
   position: absolute;
   bottom: 0;
@@ -55,14 +67,16 @@ h1::after {
 }
 
 h3 {
+  /* Estilo para os títulos dos cards de animais. */
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--primary-green);
   margin-bottom: 0.5rem;
 }
 
-/* --- ESTILOS DOS FORMULÁRIOS --- */
+/* --- CONTAINER PARA OS FORMULÁRIOS --- */
 .forms-container {
+  /* Organiza os formulários de criação e filtro lado a lado. */
   display: flex;
   justify-content: space-between; 
   align-items: flex-start; 
@@ -71,10 +85,13 @@ h3 {
 }
 
 .form-wrapper {
+  /* Garante que cada formulário ocupe o espaço disponível. */
   flex: 1; 
 }
 
+/* --- FORMULÁRIO DE CRIAÇÃO E FILTRO --- */
 .create-form {
+  /* Estiliza a caixa que envolve os formulários. */
   background-color: var(--white);
   padding: 2rem;
   border-radius: var(--radius-lg);
@@ -83,6 +100,7 @@ h3 {
 }
 
 .create-form label {
+  /* Estilo para os textos (rótulos) dos campos do formulário. */
   display: block;
   font-weight: 500;
   color: var(--dark-brown);
@@ -92,24 +110,27 @@ h3 {
 .create-form input,
 .create-form select,
 .create-form textarea {
+  /* Estilo geral para os campos de preenchimento dos formulários. */
   width: 100%;
   padding: 0.75rem;
   border: 1px solid var(--medium-gray);
   border-radius: var(--radius-sm);
   margin-bottom: 1.5rem;
   font-size: 1rem;
-  transition: all 0.2s ease;
+  transition: all 0.2s ease; /* Efeito suave de transição */
 }
 
 .create-form input:focus,
 .create-form select:focus,
 .create-form textarea:focus {
+  /* Efeito visual para quando um campo do formulário é selecionado. */
   outline: none;
   border-color: var(--secondary-green);
   box-shadow: 0 0 0 3px rgba(88, 129, 87, 0.2);
 }
 
 .create-form button {
+  /* Estilo do botão principal dos formulários. */
   background-color: var(--secondary-green);
   color: white;
   border: none;
@@ -122,43 +143,43 @@ h3 {
 }
 
 .create-form button:hover {
+  /* Efeito visual quando o mouse passa por cima do botão. */
   background-color: var(--primary-green);
   box-shadow: var(--shadow-md);
 }
 
-@media (max-width: 900px) {
-  .forms-container {
-    flex-direction: column;
-    gap: 3rem; 
-  }
-}
-
+/* --- GRADE DE CARDS DOS ANIMAIS --- */
 .animal-grid {
+  /* Cria uma grade que se ajusta automaticamente ao tamanho da tela. */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
 }
 
+/* --- CARD INDIVIDUAL DE CADA ANIMAL --- */
 .animal-card {
+  /* Estiliza cada "cartão" que mostra as informações de um animal. */
   background-color: var(--white);
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-md);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: fadeIn 0.3s ease-out forwards;
+  animation: fadeIn 0.3s ease-out forwards; /* Animação de entrada */
   display: flex;
   flex-direction: column;
 }
 
 .animal-card:hover {
+  /* Efeito de "flutuar" quando o mouse passa sobre o card. */
   transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
 }
 
 .animal-card-content {
+  /* Área de conteúdo dentro do card. */
   padding: 1.5rem;
-  flex-grow: 1;
+  flex-grow: 1; /* Faz o conteúdo ocupar o espaço vertical disponível */
 }
 
 .animal-card p {
@@ -167,15 +188,17 @@ h3 {
 }
 
 .animal-card strong {
+  /* Estilo para o texto em negrito dentro do card (ex: "Nome Científico:"). */
   color: var(--dark-brown);
   font-weight: 500;
 }
 
-/* --- STATUS E BOTÕES --- */
+/* --- EMBLEMAS DE STATUS (VULNERÁVEL, CRÍTICO, ETC.) --- */
 .status-badge {
+  /* Estilo base para a "etiqueta" colorida do status. */
   display: inline-block;
   padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
+  border-radius: 9999px; /* Um valor alto para garantir que seja sempre um círculo */
   font-size: 0.875rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -184,33 +207,39 @@ h3 {
 }
 
 .status-vulnerable {
+  /* Cor para o status "Vulnerável". */
   background-color: rgba(245, 158, 11, 0.1);
   color: var(--vulnerable);
   border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
 .status-endangered {
+  /* Cor para o status "Em Perigo". */
   background-color: rgba(249, 115, 22, 0.1);
   color: var(--endangered);
   border: 1px solid rgba(249, 115, 22, 0.3);
 }
 
 .status-critical {
+  /* Cor para o status "Criticamente em Perigo". */
   background-color: rgba(220, 38, 38, 0.1);
   color: var(--critical);
   border: 1px solid rgba(220, 38, 38, 0.3);
 }
 
+/* --- BOTÕES DE AÇÃO (EDITAR, EXCLUIR) --- */
 .action-buttons {
+  /* Alinha os botões de ação na parte de baixo do card. */
   display: flex;
   gap: 0.75rem;
   padding: 0 1.5rem 1.5rem 1.5rem; 
   margin-top: 1rem;
-  border-top: 1px solid var(--light-gray);
+  border-top: 1px solid var(--light-gray); /* Linha separadora */
   padding-top: 1rem;
 }
 
 .btn {
+  /* Estilo base para todos os botões de ação. */
   padding: 0.5rem 1rem;
   border-radius: var(--radius-sm);
   font-weight: 500;
@@ -222,6 +251,7 @@ h3 {
 }
 
 .btn-edit {
+  /* Cor específica para o botão de "Editar". */
   background-color: var(--light-green);
   color: var(--dark-brown);
 }
@@ -232,6 +262,7 @@ h3 {
 }
 
 .btn-delete {
+  /* Cor específica para o botão de "Excluir". */
   background-color: var(--critical);
   color: white;
 }
@@ -241,13 +272,23 @@ h3 {
 }
 
 
+/* --- AJUSTES PARA TELAS MENORES (RESPONSIVIDADE) --- */
+@media (max-width: 900px) {
+  /* Para telas com largura máxima de 900px... */
+  .forms-container {
+    flex-direction: column; /* ...os formulários ficam um em cima do outro. */
+    gap: 3rem; 
+  }
+}
+
 @media (max-width: 768px) {
+  /* Para telas com largura máxima de 768px (celulares)... */
   body {
-    padding: 1rem;
+    padding: 1rem; /* Diminui o espaçamento da página. */
   }
   
   .animal-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* ...os cards de animais ocupam a largura total. */
   }
   
   .create-form {
@@ -255,12 +296,15 @@ h3 {
   }
 }
 
+/* --- ANIMAÇÕES --- */
 @keyframes fadeIn {
+  /* Animação que faz os cards aparecerem suavemente. */
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .loading-card {
+  /* Estilo para um "card de carregamento" (placeholder). */
   background-color: var(--light-gray);
   min-height: 200px;
   border-radius: var(--radius-lg);
@@ -269,6 +313,7 @@ h3 {
 }
 
 .loading-card::after {
+  /* Animação de brilho que passa sobre o card de carregamento. */
   content: '';
   position: absolute;
   top: 0;
@@ -280,13 +325,14 @@ h3 {
 }
 
 @keyframes loading {
+  /* Define o movimento da animação de brilho. */
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
 
-
 /* --- SEÇÃO DE PREVENÇÃO --- */
 .prevention-section {
+  /* Define o container principal da seção "Como Ajudar". */
   margin-top: 4rem;
   background-color: var(--light-green);
   padding: 2.5rem;
@@ -296,6 +342,7 @@ h3 {
 }
 
 .prevention-section h2 {
+  /* Estiliza o título da seção de prevenção. */
   color: var(--dark-brown);
   font-size: 1.75rem;
   font-weight: 700;
@@ -306,6 +353,7 @@ h3 {
 }
 
 .prevention-section h2::after {
+  /* Linha decorativa embaixo do título da seção. */
   content: '';
   position: absolute;
   bottom: 0;
@@ -318,6 +366,7 @@ h3 {
 }
 
 .prevention-grid {
+  /* Cria uma grade para os cards com dicas de prevenção. */
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
@@ -326,6 +375,7 @@ h3 {
 }
 
 .prevention-card {
+  /* Estiliza cada card com uma dica. */
   background-color: var(--white);
   padding: 1.5rem;
   border-radius: var(--radius-md);
@@ -334,17 +384,20 @@ h3 {
 }
 
 .prevention-card:hover {
+  /* Efeito de flutuar ao passar o mouse. */
   transform: translateY(-5px);
   box-shadow: var(--shadow-md);
 }
 
 .prevention-card h3 {
+  /* Título de cada dica. */
   color: var(--primary-green);
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
 }
 
 .prevention-card p {
+  /* Texto de cada dica. */
   color: var(--dark-gray);
   font-size: 0.95rem;
   line-height: 1.6;
@@ -352,6 +405,7 @@ h3 {
 
 /* --- SEÇÃO DE CONTATOS DE AUTORIDADES --- */
 .authorities-contact {
+  /* Caixa com os números de telefone para denúncia. */
   margin-top: 2.5rem;
   padding: 1.5rem;
   background-color: var(--beige);
@@ -361,12 +415,14 @@ h3 {
 }
 
 .authorities-contact h4 {
+  /* Título da seção de contatos. */
   font-size: 1.25rem;
   color: var(--primary-green);
   margin-bottom: 0.5rem;
 }
 
 .authorities-contact p {
+  /* Texto explicativo da seção de contatos. */
   color: var(--dark-brown);
   margin-bottom: 1rem;
   max-width: 600px;
@@ -375,6 +431,7 @@ h3 {
 }
 
 .authorities-contact ul {
+  /* Remove os marcadores padrão da lista de telefones. */
   list-style: none;
   padding: 0;
   display: inline-block;
@@ -382,13 +439,14 @@ h3 {
 }
 
 .authorities-contact li {
+  /* Estilo de cada item (telefone) da lista. */
   font-size: 1.1rem;
   color: var(--dark-brown);
   margin-bottom: 0.5rem;
 }
 
 .authorities-contact li strong {
+  /* Destaque para o nome do órgão (ex: IBAMA). */
   font-weight: 600;
   color: var(--primary-green);
 }
-
